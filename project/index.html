@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Photo Strip Generator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <h1>Photo Strip Generator</h1>
+      
+      <!-- Upload Section - shown initially -->
+      <div id="uploadSection" class="upload-container">
+        <h3>Create Your Photo Strip</h3>
+        
+        <!-- Mode Toggle -->
+        <div class="mode-toggle">
+          <button id="uploadModeBtn" class="mode-btn active">Upload Photos</button>
+          <button id="cameraModeBtn" class="mode-btn">Take Photos</button>
+        </div>
+        
+        <!-- Upload Mode -->
+        <div id="uploadMode" class="mode-content">
+          <div class="file-inputs">
+            <input type="file" id="photo1" accept="image/*" />
+            <label for="photo1">Photo 1</label>
+            
+            <input type="file" id="photo2" accept="image/*" />
+            <label for="photo2">Photo 2</label>
+            
+            <input type="file" id="photo3" accept="image/*" />
+            <label for="photo3">Photo 3</label>
+            
+            <input type="file" id="photo4" accept="image/*" />
+            <label for="photo4">Photo 4</label>
+          </div>
+        </div>
+        
+        <!-- Camera Mode -->
+        <div id="cameraMode" class="mode-content hidden">
+          <div class="camera-container">
+            <video id="cameraVideo" autoplay playsinline></video>
+            <canvas id="captureCanvas" style="display: none;"></canvas>
+          </div>
+          
+          <div class="camera-controls">
+            <button id="startCameraBtn">Start Camera</button>
+            <button id="captureBtn" class="hidden">Capture Photo <span id="photoCounter">1</span></button>
+            <button id="retakeBtn" class="hidden">Retake Last Photo</button>
+          </div>
+          
+          <div class="captured-photos">
+            <div class="photo-preview" id="preview1"></div>
+            <div class="photo-preview" id="preview2"></div>
+            <div class="photo-preview" id="preview3"></div>
+            <div class="photo-preview" id="preview4"></div>
+          </div>
+        </div>
+        
+        <div class="upload-status">
+          <p id="uploadStatus">0 of 4 photos ready</p>
+        </div>
+      </div>
+      
+      <!-- Main Content - shown after all images uploaded -->
+      <div id="mainContent" class="main-content hidden">
+        <div class="content-container">
+          <!-- Left Column - Photo Strip -->
+          <div class="strip-column">
+            <div class="canvas-container">
+              <canvas id="photoStrip" width="220" height="580"></canvas>
+            </div>
+          </div>
+          
+          <!-- Right Column - Controls -->
+          <div class="controls-column">
+            <div class="controls-box">
+              <div class="frame-section">
+                <h3>Frame Color</h3>
+                
+                <!-- Advanced Color Selector -->
+                <div class="color-selector">
+                  <!-- Mode Toggle -->
+                  <div class="color-mode-toggle">
+                    <button class="color-mode-btn active" data-mode="solid">Solid</button>
+                    <button class="color-mode-btn" data-mode="gradient">Gradient</button>
+                  </div>
+                  
+                  <!-- Solid Colors Mode -->
+                  <div class="color-mode-content" id="solidMode">
+                    <!-- Color Picker Area -->
+                    <div class="color-picker-area">
+                      <div class="color-canvas" id="colorCanvas">
+                        <div class="color-cursor" id="colorCursor"></div>
+                      </div>
+                      <div class="hue-slider" id="hueSlider">
+                        <div class="hue-cursor" id="hueCursor"></div>
+                      </div>
+                    </div>
+                    
+                    <!-- Color Input -->
+                    <div class="color-input-section">
+                      <div class="color-preview" id="colorPreview"></div>
+                      <input type="text" id="colorInput" value="#000000" placeholder="#000000">
+                    </div>
+                    
+                    <!-- Preset Colors -->
+                    <div class="preset-colors">
+                      <div class="preset-color active" data-color="#000000" style="background:#000000;" title="Black"></div>
+                      <div class="preset-color" data-color="#ffffff" style="background:#ffffff; border:1px solid #ddd;" title="White"></div>
+                      <div class="preset-color" data-color="#f8bbd9" style="background:#f8bbd9;" title="Pink"></div>
+                      <div class="preset-color" data-color="#87ceeb" style="background:#87ceeb;" title="Blue"></div>
+                      <div class="preset-color" data-color="#8e24aa" style="background:#8e24aa;" title="Purple"></div>
+                      <div class="preset-color" data-color="#4caf50" style="background:#4caf50;" title="Green"></div>
+                      <div class="preset-color" data-color="#ffeb3b" style="background:#ffeb3b;" title="Yellow"></div>
+                      <div class="preset-color" data-color="#ff5722" style="background:#ff5722;" title="Orange"></div>
+                    </div>
+                  </div>
+                  
+                  <!-- Gradient Mode -->
+                  <div class="color-mode-content hidden" id="gradientMode">
+                    <div class="gradient-options">
+                      <div class="gradient-preset" data-gradient="linear-gradient(45deg, #667eea 0%, #764ba2 100%)" style="background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);" title="Purple Blue"></div>
+                      <div class="gradient-preset" data-gradient="linear-gradient(45deg, #f093fb 0%, #f5576c 100%)" style="background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);" title="Pink Red"></div>
+                      <div class="gradient-preset" data-gradient="linear-gradient(45deg, #4facfe 0%, #00f2fe 100%)" style="background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);" title="Blue Cyan"></div>
+                      <div class="gradient-preset" data-gradient="linear-gradient(45deg, #43e97b 0%, #38f9d7 100%)" style="background: linear-gradient(45deg, #43e97b 0%, #38f9d7 100%);" title="Green Mint"></div>
+                      <div class="gradient-preset" data-gradient="linear-gradient(45deg, #fa709a 0%, #fee140 100%)" style="background: linear-gradient(45deg, #fa709a 0%, #fee140 100%);" title="Pink Yellow"></div>
+                      <div class="gradient-preset" data-gradient="linear-gradient(45deg, #a8edea 0%, #fed6e3 100%)" style="background: linear-gradient(45deg, #a8edea 0%, #fed6e3 100%);" title="Mint Pink"></div>
+                      <div class="gradient-preset" data-gradient="linear-gradient(45deg, #ff9a9e 0%, #fecfef 100%)" style="background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 100%);" title="Coral Pink"></div>
+                      <div class="gradient-preset" data-gradient="linear-gradient(45deg, #ffecd2 0%, #fcb69f 100%)" style="background: linear-gradient(45deg, #ffecd2 0%, #fcb69f 100%);" title="Peach"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="action-buttons">
+                <button id="downloadBtn">Download PNG</button>
+                <button id="resetBtn">Reset All</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
