@@ -91,7 +91,7 @@ h3 {
 }
 
 .mode-btn.active {
-  background: #007bff;
+  background: #76aeea;
   color: white;
   box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
 }
@@ -120,7 +120,7 @@ h3 {
 .file-inputs label {
   display: block;
   padding: 20px;
-  background: #007bff;
+  background: #70a5dd;
   color: white;
   border-radius: 8px;
   cursor: pointer;
@@ -132,7 +132,7 @@ h3 {
 }
 
 .file-inputs label:hover {
-  background: #0056b3;
+  background: #6dabed;
   transform: translateY(-2px);
 }
 
@@ -178,12 +178,12 @@ h3 {
 }
 
 #startCameraBtn {
-  background: #007bff;
+  background: #81acda;
   color: white;
 }
 
 #startCameraBtn:hover {
-  background: #0056b3;
+  background: #81acdb;
 }
 
 #captureBtn {
