@@ -18,7 +18,7 @@ body {
   margin: 0;
   padding: 20px;
   min-height: 100vh;
-  background-color: #255b6b;
+  background-color: #eae0c8;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,13 +32,13 @@ body {
 
 h1 {
   text-align: center;
-  color: #406b8c;
+  color: #536878;
   margin-bottom: 30px;
   font-size: 2.5em;
 }
 
 h3 {
-  color: #406b8c;
+  color: #536878;
   margin-bottom: 15px;
   font-size: 1.2em;
 }
@@ -120,7 +120,7 @@ h3 {
 .file-inputs label {
   display: block;
   padding: 20px;
-  background: #9cbcc6;
+  background: #536878;
   color: white;
   border-radius: 8px;
   cursor: pointer;
@@ -132,7 +132,7 @@ h3 {
 }
 
 .file-inputs label:hover {
-  background: #9cbcc6;
+  background: #536878;
   transform: translateY(-2px);
 }
 
