@@ -120,7 +120,7 @@ h3 {
 .file-inputs label {
   display: block;
   padding: 20px;
-  background: #70a5dd;
+  background: #9cbcc6;
   color: white;
   border-radius: 8px;
   cursor: pointer;
@@ -132,7 +132,7 @@ h3 {
 }
 
 .file-inputs label:hover {
-  background: #6dabed;
+  background: #9cbcc6;
   transform: translateY(-2px);
 }
 
@@ -178,12 +178,12 @@ h3 {
 }
 
 #startCameraBtn {
-  background: #81acda;
+  background: #9cbcc6;
   color: white;
 }
 
 #startCameraBtn:hover {
-  background: #81acdb;
+  background: #9cbcc6;
 }
 
 #captureBtn {
