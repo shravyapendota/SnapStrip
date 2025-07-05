@@ -590,3 +590,9 @@ h3 {
     width: 160px;
   }
 } 
+#photoStrip {
+  border-radius: 20px;
+}
+#photoStrip img {
+  border-radius: 20px;
+}

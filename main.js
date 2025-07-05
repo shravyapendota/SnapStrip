@@ -12,6 +12,32 @@ class PhotoStripGenerator {
     this.colorMode = 'solid'; // 'solid' or 'gradient'
     this.currentHue = 0;
     
+  // Function to draw a rounded rectangle and clip the context
+  // This function creates a rounded rectangle path and clips the context to that path
+  // It uses quadratic curves to create the rounded corners
+  // Parameters:
+  // - ctx: The canvas context to draw on
+  // - x: The x-coordinate of the rectangle
+  // - y: The y-coordinate of the rectangle
+  // - width: The width of the rectangle
+  // - height: The height of the rectangle
+  // - radius: The radius of the corners
+  
+    function drawRoundedRect(ctx, x, y, width, height, radius) {
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + width - radius, y);
+    ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+    ctx.lineTo(x + width, y + height - radius);
+    ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+    ctx.lineTo(x + radius, y + height);
+    ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.closePath();
+    ctx.clip();
+  }
+
     // Canvas dimensions - further reduced size
     this.canvasWidth = 220;
     this.canvasHeight = 580;
@@ -549,17 +575,18 @@ class PhotoStripGenerator {
       drawY = y - (drawHeight - height) / 2;
     }
     
-    // Create clipping region
     this.ctx.save();
-    this.ctx.beginPath();
-    this.ctx.rect(x, y, width, height);
-    this.ctx.clip();
-    
-    // Draw the image
+
+    // Apply rounded clipping
+    drawRoundedRect(this.ctx, x, y, width, height, 30); // ← radius 30px
+
+    // Draw image inside rounded area
     this.ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
-    
+    // Restore context to remove clipping
     this.ctx.restore();
+
   }
+  
   
   downloadImage() {
     // Create download link
